@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Search from "./components/Search";
 import MovieList from "./components/MovieList";
 import MovieDetails from './components/MovieDetails';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom"; // only Routes & Route
 import './App.css'
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
           setError("");
         } else {
           setMovies([]);
-          setError("Aucun film trouve !");
+          setError("Aucun film trouvé !");
         }
       } catch (err) {
         setMovies([]);
@@ -40,31 +40,25 @@ function App() {
   }, [query]);
 
   return (
-    <>
-      <BrowserRouter>
-        <div>
-          <h1>Netflix </h1>
-          <Routes>
-            <Route 
-              path="/"
-              element={
-                <>
-                  <Search query={query} setQuery={setQuery} />
-                  {error && <p>{error}</p>}
-                  <MovieList movies={movies} />
-                </>
-              }
-            />
-              <Route 
-                path="/movie/:id"
-                  element={
-                    <MovieDetails />
-                  }
-              />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </>
+    <div>
+      <h1>Netflix</h1>
+      <Routes>
+        <Route 
+          path="/"
+          element={
+            <>
+              <Search query={query} setQuery={setQuery} />
+              {error && <p>{error}</p>}
+              <MovieList movies={movies} />
+            </>
+          }
+        />
+        <Route 
+          path="/movie/:id"
+          element={<MovieDetails />}
+        />
+      </Routes>
+    </div>
   );
 }
 
