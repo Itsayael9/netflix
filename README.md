@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +69,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+# netflix
+A modern movie search application built with React.js that allows users to browse and explore movie information using the TMDB API. The interface is fully styled to look like Netflix, featuring a dark theme, hover animations, and a clean responsive layout.
+>>>>>>> 4be03c20c6ea1285475817bdcea366c3686a6779
