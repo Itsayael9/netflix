@@ -1,24 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import Search from "./components/Search";
+import MovieList from "./components/MovieList";
+import MovieDetails from './components/MovieDetails';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import './App.css'
 
 function App() {
+  const [query, setQuery] = useState("");
+  const [movies, setMovies] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (query === "") {
+      setMovies([]);
+      setError("");
+      return;
+    }
+
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/search/movie?api_key=dc1d05a48335662a49f759b8bff9693e&query=${query}`
+        );
+        const data = await response.json();
+        if (data.results.length > 0) {
+          setMovies(data.results);
+          setError("");
+        } else {
+          setMovies([]);
+          setError("Aucun film trouve !");
+        }
+      } catch (err) {
+        setMovies([]);
+        setError("Erreur lors de la recherche");
+      }
+    };
+
+    fetchMovies();
+  }, [query]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <div>
+          <h1>Netflix </h1>
+          <Routes>
+            <Route 
+              path="/"
+              element={
+                <>
+                  <Search query={query} setQuery={setQuery} />
+                  {error && <p>{error}</p>}
+                  <MovieList movies={movies} />
+                </>
+              }
+            />
+              <Route 
+                path="/movie/:id"
+                  element={
+                    <MovieDetails />
+                  }
+              />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </>
   );
 }
 
